@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.fragments.onboard.OnBoardFragment"
+    android:background="@color/black">
+
+    <androidx.viewpager2.widget.ViewPager2
+        android:id="@+id/view_pager2"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
+
+    <TextView
+        android:id="@+id/tv_skip"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="15sp"
+        android:textColor="@color/orange"
+        android:text="@string/skip"
+        android:layout_gravity="end"
+        android:layout_marginTop="25dp"
+        android:layout_marginEnd="19dp"
+        android:textStyle="bold"
+        />
+    <TextView
+        android:id="@+id/tv_start"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="24sp"
+        android:textColor="@color/gray"
+        android:text="@string/start_work"
+        android:layout_gravity="center"
+        android:layout_marginTop="180dp"
+        android:textStyle="bold"/>
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_gravity="bottom|center"
+        android:layout_marginBottom="100dp">
+
+        <ImageView
+            android:id="@+id/img_ellipse1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/gray_dot"/>
+        <ImageView
+            android:id="@+id/img_ellipse2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/gray_dot"
+            android:layout_marginHorizontal="20dp"/>
+        <ImageView
+            android:id="@+id/img_ellipse3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/gray_dot"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_gravity="bottom|center"
+        android:layout_marginBottom="100dp">
+
+        <ImageView
+            android:id="@+id/img_ellipse4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/orange_dot"
+            android:visibility="invisible"/>
+        <ImageView
+            android:id="@+id/img_ellipse5"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/orange_dot"
+            android:layout_marginHorizontal="20dp"
+            android:visibility="invisible"/>
+        <ImageView
+            android:id="@+id/img_ellipse6"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/orange_dot"
+            android:visibility="invisible"/>
+
+    </LinearLayout>
+
+
+
+</FrameLayout>
