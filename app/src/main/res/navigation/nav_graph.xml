@@ -3,18 +3,22 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph.xml"
-    app:startDestination="@id/noteFragment">
+    app:startDestination="@id/onBoardFragment">
 
     <fragment
         android:id="@+id/noteFragment"
         android:name="com.example.notes2.ui.fragments.note.NoteFragment"
         android:label="fragment_note"
-        tools:layout="@layout/fragment_note" />
+        tools:layout="@layout/fragment_note" >
+        <action
+            android:id="@+id/action_noteFragment_to_NoteDetailFragment"
+            app:destination="@id/noteDetailFragment" />
+    </fragment>
     <fragment
         android:id="@+id/onBoardFragment"
         android:name="com.example.notes2.ui.fragments.onboard.OnBoardFragment"
         android:label="fragment_on_board"
-        tools:layout="@layout/fragment_on_board" >
+        tools:layout="@layout/fragment_on_board">
         <action
             android:id="@+id/action_onBoardFragment_to_noteFragment"
             app:destination="@id/noteFragment" />
@@ -24,4 +28,16 @@
         android:name="com.example.notes2.ui.fragments.onboard.OnBoardPagingFragment"
         android:label="fragment_on_board_paging"
         tools:layout="@layout/fragment_on_board_paging" />
+    <fragment
+        android:id="@+id/noteDetailFragment"
+        android:name="com.example.notes2.ui.fragments.note.NoteDetailFragment"
+        android:label="fragment_detail_note"
+        tools:layout="@layout/fragment_note_detail" >
+        <action
+            android:id="@+id/action_noteDetailFragment_to_noteFragment"
+            app:destination="@id/noteFragment" />
+    </fragment>
+    <argument
+        android:name="date"
+        android:defaultValue=" " />
 </navigation>
