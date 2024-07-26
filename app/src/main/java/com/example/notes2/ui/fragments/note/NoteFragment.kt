@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.notes2.App
 import com.example.notes2.R
 import com.example.notes2.data.extension.getBackStackData
 import com.example.notes2.data.models.NoteModel
@@ -45,15 +46,15 @@ class NoteFragment : Fragment() {
 
     private fun setUpListeners() = with(binding) {
         addBtn.setOnClickListener {
-            findNavController().navigate(R.id.action_noteFragment_to_noteDetailFragment)
+            findNavController().navigate(R.id.action_noteFragment_to_NoteDetailFragment)
         }
     }
 
     private fun getData() {
-        getBackStackData<String>("key") { data ->
-            val noteModel = NoteModel(data)
-            list.add(noteModel)
-            noteAdapter.submitList(list)
+        App().getInstance()?.noteDao()?.getAll()?.observe(viewLifecycleOwner){
+            noteAdapter.submitList(it)
         }
+
+
     }
 }
