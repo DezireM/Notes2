@@ -36,6 +36,9 @@
         <action
             android:id="@+id/action_noteDetailFragment_to_noteFragment"
             app:destination="@id/noteFragment" />
+        <argument
+            android:name="noteId"
+            app:argType="integer" />
     </fragment>
     <argument
         android:name="date"

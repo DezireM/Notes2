@@ -24,6 +24,8 @@ class NoteDetailFragment : Fragment() {
 
     private lateinit var binding: FragmentNoteDetailBinding
     private var colorResource: Int = R.drawable.style
+    private var noteId: Int = -1
+
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -38,6 +40,25 @@ class NoteDetailFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         setUpListeners()
         displayCurrentDateTime()
+    }
+
+    private fun update() {
+        arguments?.let {
+            noteId = it.getInt("noteId", -1)
+        }
+        if (noteId != -1) {
+            val note = App().getInstance()?.noteDao()?.getNoteById(noteId)
+            note?.let { model ->
+                binding.etTitle.setText(model.title)
+                binding.etDescription.setText(model.description)
+                colorResource = model.color.toInt()
+                when (colorResource) {
+                    R.drawable.style -> binding.rb1.isChecked = true
+                    R.drawable.style_white -> binding.rb2.isChecked = true
+                    R.drawable.style_red -> binding.rb3.isChecked = true
+                }
+            }
+        }
     }
 
     @RequiresApi(Build.VERSION_CODES.O)
@@ -60,14 +81,34 @@ class NoteDetailFragment : Fragment() {
         binding.etDescription.addTextChangedListener(textWatcher)
 
         binding.btnAdd.setOnClickListener {
-            saveNote()
+            val etTitle = binding.etTitle.text.toString()
+            val etDescription = binding.etDescription.text.toString()
+            val itemDate = binding.date.text.toString()
+            val itemTime = binding.time.text.toString()
+
+            val noteModel = NoteModel(
+                title = etTitle,
+                description = etDescription,
+                date = itemDate,
+                time = itemTime,
+                color = colorResource.toString()
+            )
+
+            if (noteId != -1) {
+                noteModel.id = noteId
+                App().getInstance()?.noteDao()?.updateNote(noteModel)
+            } else {
+                App().getInstance()?.noteDao()?.insertNote(noteModel)
+            }
+            findNavController().navigateUp()
         }
 
         binding.returnBtn.setOnClickListener {
             findNavController().navigate(R.id.action_noteDetailFragment_to_noteFragment)
         }
+        binding.btnAdd.visibility = View.GONE
 
-        binding.radioGroup.setOnCheckedChangeListener { _, checkedId ->
+        binding.radioGroup.setOnCheckedChangeListener { group, checkedId ->
             colorResource = when (checkedId) {
                 binding.rb1.id -> R.drawable.style
                 binding.rb2.id -> R.drawable.style_white
@@ -75,8 +116,6 @@ class NoteDetailFragment : Fragment() {
                 else -> R.drawable.style
             }
         }
-
-        binding.btnAdd.visibility = View.GONE
     }
 
     @RequiresApi(Build.VERSION_CODES.O)
@@ -84,26 +123,9 @@ class NoteDetailFragment : Fragment() {
         val currentDateTime = LocalDateTime.now()
         val formatterDate = DateTimeFormatter.ofPattern("dd MMMM")
         val formatterTime = DateTimeFormatter.ofPattern("HH:mm")
-        binding.date.text = currentDateTime.format(formatterDate)
-        binding.time.text = currentDateTime.format(formatterTime)
-    }
-
-    private fun saveNote() {
-        val etTitle = binding.etTitle.text.toString()
-        val etDescription = binding.etDescription.text.toString()
-        val itemDate = binding.date.text.toString()
-        val itemTime = binding.time.text.toString()
-
-        App().getInstance()?.noteDao()?.insertNote(
-            NoteModel(
-                title = etTitle,
-                description = etDescription,
-                date = itemDate,
-                time = itemTime,
-                color = colorResource.toString()
-            )
-        )
-
-        findNavController().navigateUp()
+        val formattedDate = currentDateTime.format(formatterDate)
+        val formattedTime = currentDateTime.format(formatterTime)
+        binding.date.text = formattedDate
+        binding.time.text = formattedTime
     }
 }
