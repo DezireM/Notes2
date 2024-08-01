@@ -10,4 +10,7 @@
     <string name="good_product">Быстрый, качественный продукт</string>
     <string name="lot_of_features">Куча функций\n</string>
     <string name="ready">Готова</string>
+    <string name="id_client_token">276181372774-bhsusqe7s4p115cbmov1r2ni25esb6jq.apps.googleusercontent.com\n</string>
+    <string name="registration_via_google">Регистрация через Google</string>
+    <string name="sign_in_google">Регистрация через Google\n</string>
 </resources>
